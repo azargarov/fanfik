@@ -1,22 +1,35 @@
-# AGENTS.md — Public Literary Translation Project
+# Fanfik — Codex book translation workflow
 
-## Session startup
-1. Read `CURRENT.md` for the public repository status and any active decision.
-2. Read only documentation needed for the requested task.
-3. A deferred idea is not authorization. Do not start new translator research or experiments unless explicitly requested.
+When asked to translate a book, carry out the complete workflow below without requiring separate requests or chapter-by-chapter approval. Read the stage prompts and rubric, and work in source order. The English EPUB is authoritative and must remain unchanged. Keep all book material under `books/`; never commit or push it. Do not modify unrelated files.
 
-## Scope and boundaries
-- Work on the requested public project task; do not assume a private book, source text, translation, or experiment archive is available.
-- Keep the project lightweight: Markdown prompts and records, the small EPUB builder, and focused tests.
-- Do not add databases, services, web interfaces, orchestration, or other frameworks without explicit authorization and demonstrated need.
-- Keep future ideas in `BACKLOG.md` and distinguish established decisions from hypotheses.
+## Chapter workflow
 
-## Translation and evaluation principles
-- When source text is supplied for an authorized task, treat it as authoritative.
-- Preserve facts, chronology, uncertainty, ambiguity, subtext, attribution, voice, register, pacing, structure, and emotional restraint.
-- Do not invent details or embellish deliberately plain prose. Prefer natural Russian while respecting the source; flag uncertain choices.
-- Make revisions only for source-grounded issues. Preserve acceptable text and check changes for new semantic errors.
-- Keep fidelity findings separate from stylistic preferences and reader ratings. Model self-review is not independent validation.
+1. **Prepare the source.** Select the requested EPUB from `books/`. If the intended source is unclear, ask. Run `python3 scripts/epub_to_markdown.py books/example.epub`. This writes one combined Markdown file and a manifest; it refuses to overwrite either output. If an output exists, verify its source and correspondence before reuse, or choose an unused `--output-dir` under the book work folder. Inspect the manifest, complete extraction, warnings, and structure. Identify ordered story chapters from the EPUB and explicit headings; exclude recognizable navigation and front matter. Prepare UTF-8 English chapter files under `books/example/source/` without overwriting existing work. Compare their complete text and order against the EPUB and imported Markdown. Stop if extraction loss or structural uncertainty could affect the story.
+2. **Initialize Dynamic Context.** Unless the user requests otherwise, create one compact `books/example/context.md` before chapter one, with `Context through: none` and sections for established facts, interpretations, unresolved questions, character/relationship states, terminology, and voice/style. Dynamic Context is experimental; its quality effect is unknown. If disabled by request, record that in progress and omit it from prompts. At startup, read `progress.md`, context when enabled, and existing artifacts. Current English source takes precedence over context.
+3. **Analyze the next chapter.** Follow `prompts/analyze.md`. Supply the complete numbered English chapter, relevant preceding English context only, and current Dynamic Context. Keep facts, interpretations, and uncertainties distinct. Save the analysis under `analysis/`. Analysis is required for every chapter.
+4. **Produce a fresh C0 translation.** Follow `prompts/translate.md` with the complete frozen chapter and current Dynamic Context (or the disabled-by-request note). Save the Russian draft under `drafts/`; keep notes out of the translation file.
+5. **Review and produce C1.** Follow `prompts/review.md` and its use of `prompts/translate.md`, comparing the full English chapter with the complete C0. Save C1 under `reviewed/`, with the change log and unresolved questions alongside it. Make only minimal, source-supported corrections and preserve acceptable prose.
+6. **Verify editorial review integrity.** Check each correction marked applied against the complete C1 at its source location. It must be present, or explicitly recorded as rejected/superseded with a reason. Compare C1 with C0 for unlogged changes. Fix discrepancies and repeat this check before assessment.
+7. **Assess C1 against English.** Follow `prompts/assess.md` and `evaluation/rubric.md` using the complete frozen source and C1. Save the separate assessment beside C0. Record additions, omissions, meaning/fact changes, and structural distortions with source and translation evidence and severity; keep these separate from 1–5 reader ratings. For one ordinary candidate, identify the candidate/evaluator and label model self-assessment plainly. Never describe it as blind, independent, or external validation.
+8. **Resolve required fidelity defects and reassess.** Correct every material or critical defect with a minimal source-grounded edit to C1. Record the change and reassess the affected passage against English, retaining initial findings and outcome. Preserve minor findings and uncertainty. Do not accept a chapter with an unresolved material or critical defect.
+9. **Accept the chapter.** Acceptance requires complete analysis, C0, C1, review record, passing review-integrity check, and assessment, with no unresolved material or critical fidelity defect. Ask only if an unresolved issue could materially change facts, events, attribution, or meaning, or if a stage/source is incomplete.
+10. **Update Dynamic Context.** Only after acceptance, update the single context file from the English chapter and accepted decisions. Keep it compact and label facts, interpretations, and unresolved questions. Do not add chapter summaries, invent facts, or use later chapters. Advance `Context through` and mark progress complete only after this update succeeds. If Dynamic Context is disabled, record completion without a context update.
+11. **Continue sequentially.** Repeat steps 3–10 for each chapter in reading order. Update `books/example/progress.md` after completed stages with source/extraction paths, chapter order, context mode/path and represented chapter, stage/output status, corrections/reassessment, acceptance, next chapter, and material unresolved questions. Do not start a later chapter until the prior chapter is accepted and its context/progress state is reconciled.
+12. **Export and validate EPUB.** Once every chapter is accepted, check that a fresh output path is unused and run the existing builder with all C1 files in order, for example:
 
-## Engineering behavior
-Keep changes small, readable, and reversible. Do not claim capabilities, test results, or approvals that have not been verified. Run tests when requested; report exactly what was run.
+       python3 scripts/markdown_to_epub.py \
+         --output books/example/example.ru.epub \
+         --title "Example Book" --author "A. Writer" --language ru \
+         books/example/reviewed/ch001.c1.md books/example/reviewed/ch002.c1.md
+
+   Use source metadata for title and author; ask if required metadata cannot be determined. Validate the ZIP and stored `mimetype`, parse the container and package documents, check spine chapter count/order, and parse every chapter XHTML for non-empty text and expected heading. These checks establish EPUB structure, not translation quality.
+
+## Interruption recovery
+
+Read progress and inspect existing files before resuming. Resume at the first incomplete stage; preserve completed outputs and never silently replace them. If C0 exists but review is incomplete, resume at review. If C1 and review exist but assessment is missing/incomplete, resume at assessment. If assessment is complete but context update is missing, update context before proceeding. If progress and context disagree, reconcile against accepted chapter records and source order; rebuild context through the latest contiguous accepted chapter or ask if that state cannot be established. If an earlier accepted chapter changes, reconcile context from there onward. Do not mark failed or incomplete stages complete.
+
+## Completion report
+
+Report the EPUB path and chapter count, extraction warnings or losses, review and assessment findings, unresolved questions, and any incomplete stage. Preserve all working and previous outputs. Never claim completion while a material/critical defect or required stage remains unresolved.
+
+For literary decisions, preserve source facts, chronology, ambiguity, subtext, attribution, voice, register, pacing, structure, and emotional restraint. Do not embellish plain prose. Keep the process instruction-led; do not add workflow engines, services, dependencies, or orchestration layers.

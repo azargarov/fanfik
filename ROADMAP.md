@@ -1,22 +1,20 @@
-# Public project roadmap
+# Roadmap
 
-Fanfik currently provides reusable prompts, an assessment rubric, and a small EPUB assembly script. The workflow is human-directed: people supply source passages, select and provide relevant context, judge proposed revisions, and decide whether work is acceptable. Nothing in the repository performs end-to-end translation or autonomous acceptance.
+## Prototype status
 
-## Established principles
+The instruction-led whole-book workflow is implemented for ordinary text-based EPUBs. Codex prepares and checks the source, processes chapters sequentially through analysis, translation, editorial review, and rubric-based assessment, records resumable progress, updates optional Dynamic Context after acceptance, and assembles a Russian EPUB from accepted chapters.
 
-- The supplied English source is authoritative; preserve facts, uncertainty, ambiguity, subtext, voice, register, pacing, structure, and emotional restraint.
-- Prefer natural Russian without embellishing plain prose. Keep acceptable text unchanged and make the smallest source-grounded correction.
-- Separate evidence-based fidelity defects from stylistic preferences and reader ratings. Model self-review is not independent validation.
-- Existing trials were limited and did not establish general superiority for structured context, adaptive editing, or any model choice.
+The repository includes an EPUB-to-Markdown importer, Markdown-to-EPUB 3 builder, stage prompts, a literary assessment rubric, and focused synthetic-input tests. Prototype validation exercised the chapter workflow and EPUB conversion/assembly; automated utility tests cover ZIP/package handling, extraction order and formatting, refusal to overwrite, and output EPUB structure. These checks do not establish translation quality or broad reliability across books and models. Full-book quality has not received independent bilingual validation.
 
-## Current reusable components
+## Known limitations
 
-- Translation, scene-analysis, and conservative-review prompts in `prompts/`.
-- A blind translation-assessment rubric in `evaluation/`.
-- A Markdown-to-EPUB 3 builder in `scripts/`, with tests in `tests/`.
+- Import is limited to ordinary unencrypted EPUB 2/3 text. PDF, OCR, DRM, images, and complex or styling-dependent layouts are unsupported; chapter boundaries may need careful manual identification.
+- EPUB import produces one combined Markdown file and a manifest, not automatically separated story chapters. Codex prepares and verifies chapter files.
+- Codex coordinates the workflow through instructions and prompts; there is no standalone translation program or automatic literary-quality guarantee.
+- Single-candidate model assessment is self-assessment, not blind or independent validation. The rubric's blind procedure is intended for controlled candidate comparison.
+- Dynamic Context is experimental. Its effect on continuity or translation quality has not been established.
+- The EPUB builder supports a limited Markdown subset and validates structure only.
 
-These components do not constitute a fully automated workflow. The EPUB builder supports basic Markdown only and does not assess content or translation quality.
+## Possible future improvements
 
-## Deferred direction
-
-Potential future research is recorded in [BACKLOG.md](BACKLOG.md). No candidate is active by default. Further work should be explicitly authorized, small, source-grounded, and evaluated against a clear question. Do not infer a general method from one book or a small number of model outputs.
+Deferred questions and ideas are in [BACKLOG.md](BACKLOG.md). Possible work includes independent bilingual assessment, checking where compact continuity notes help, and addressing demonstrated extraction or formatting gaps. These are research directions, not proven quality improvements or active commitments. Keep the project model-independent and avoid adding orchestration or infrastructure without a demonstrated need.

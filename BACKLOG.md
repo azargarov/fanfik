@@ -1,6 +1,6 @@
 # Research backlog
 
-All items below are deferred. They are questions for possible future work, not approved experiments or promised capabilities. Any work should be explicitly requested, limited to a clear question, and evaluated without treating model self-review as independent evidence.
+Items below are deferred questions, not approved experiments or promised capabilities. Any future work should be explicit, limited to a clear question, and evaluated without treating model self-review as independent evidence.
 
 ## Translation context and continuity
 
@@ -21,7 +21,7 @@ Assess how minimal change thresholds, ambiguity flags, terminology decisions, an
 - Selective review or chapter-continuity support when manual work reveals a specific recurring gap.
 - Reproducible comparisons of model roles only when the task, access, and evaluation material are comparable.
 
-Do not assume these require automated pipelines, databases, agents, services, or large benchmarks. The current EPUB builder is a narrow formatting utility and makes no claim about whole-book workflow support.
+Do not assume these require automated pipelines, databases, agents, services, or large benchmarks. The importer and builder limitations are summarized in [ROADMAP.md](ROADMAP.md).
 
 ## Decision rules
 

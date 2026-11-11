@@ -1,61 +1,31 @@
-# Fanfik — English-to-Russian literary translation
+# Fanfik
 
-Fanfik is an experimental, human-directed approach to producing natural Russian literary translations. Its structured prompts are designed to help preserve the original author's meaning, voice, style, pacing, and emotional restraint, with optional contextual analysis and conservative editorial review. People remain responsible for the translation and every editorial decision; this methodology is not claimed to be scientifically superior to other approaches.
+Fanfik is a Codex-guided workflow for translating English fiction into Russian. It prepares an EPUB, works through chapters in order, records resumable progress, and assembles a Russian EPUB after each chapter passes review and assessment.
 
-**New to Fanfik? Start with the [Getting Started guide](docs/GETTING_STARTED.md).**
+[Getting started](docs/GETTING_STARTED.md) · [Русский](README.ru.md)
 
-## The workflow
+## Quick start
 
-**Analyze → Translate → Review**
+1. Open this repository in Codex and put one ordinary, unencrypted English EPUB in `books/`.
+2. Ask: **“Translate the English EPUB in `books/` into Russian using Fanfik. Save the finished EPUB in `books/`.”**
+3. Codex prepares and checks the source, analyzes, translates, reviews, and assesses every chapter, then exports and structurally validates the Russian EPUB. It asks only if the source, metadata, or a material ambiguity prevents safe progress.
 
-- **Analyze (optional):** identify relevant context, relationships, ambiguity, and stylistic considerations from the source.
-- **Translate:** produce natural Russian while preserving the author's intent and source structure.
-- **Review (optional):** identify source-grounded errors and propose conservative corrections.
+No separate chapter-by-chapter requests or Python packages are needed. Python 3.10+ is required for the included EPUB utilities. The complete workflow is defined in [AGENTS.md](AGENTS.md); stage prompts and evaluation criteria are in [prompts/](prompts/) and [evaluation/rubric.md](evaluation/rubric.md).
 
-These stages are coordinated manually. You decide whether to analyze or review, and your judgment remains authoritative throughout.
+## Files and resuming
 
-## Try a short passage
+Book-specific source, working files, progress, and final EPUBs belong under `books/`, which is excluded from Git. The English EPUB is left unchanged. If a run is interrupted, reopen the repository in Codex and ask it to continue the translation in `books/`; it reads the progress record and existing artifacts, then resumes at the first incomplete stage.
 
-Open [`prompts/translate.md`](prompts/translate.md), copy its instructions into a chat with an AI assistant, and replace `{{SOURCE_TEXT}}` with a passage. For example:
+## Scope and limitations
 
-> When the lantern went out, Mira kept walking. “I can still hear the river,” she said.
+The importer supports text in ordinary EPUB 2/3 XHTML/HTML. It does not support PDF, OCR, DRM, images, or complex layout; extraction warnings and uncertain chapter boundaries require inspection. The workflow is coordinated by Codex instructions, not a standalone translation engine. Model review and single-candidate assessment are not independent validation, and Dynamic Context is experimental; its effect on quality has not been established. The EPUB builder handles a limited Markdown subset and checks structure, not literary quality.
 
-The passage above is a fictional example, not a quality test or a verified translation result. The prompt asks the assistant to return only the Russian translation.
+Keep copyrighted or private source books and all generated book material out of version control. Text is processed by the AI provider used with Codex; check the provider’s data-handling terms.
 
-## Who might use Fanfik
+## Repository map
 
-Fanfiction readers, amateur literary translators, people exploring AI-assisted fiction translation, and technical readers interested in structured translation workflows. No programming knowledge is needed to use the prompts.
-
-## Translation principles
-
-The English source is authoritative. Aim for natural Russian while preserving meaning, uncertainty, ambiguity, subtext, voice, register, pacing, paragraph structure, and emotional restraint. Do not add details or explain what the source leaves implicit. Review changes against the source, make only justified corrections, and leave uncertain choices for human judgment.
-
-## Requirements and EPUB export
-
-Using the prompts requires a chat-based language model or assistant; provider workflows are described in the [Getting Started guide](docs/GETTING_STARTED.md). EPUB export and tests require Python 3.10 or newer. The builder uses only Python's standard library. No operating-system-specific support has been verified.
-
-To assemble non-empty UTF-8 Markdown chapter files into an EPUB, pass them in reading order:
-
-```sh
-python3 scripts/markdown_to_epub.py -o book.epub \
-  --title "Example Book" --author "A. Writer" ch01.md ch02.md
-```
-
-This command uses the existing builder; the title, author, and chapter names are examples to replace with your own. See [EPUB integration notes](docs/INTEGRATION.md) for supported Markdown and details.
-
-## Available, experimental, and not implemented
-
-- **Verified:** the EPUB builder's tests cover synthetic Markdown files, basic EPUB structure, chapter order, some formatting, and a missing-file error.
-- **Experimental and untested as complete workflows:** using the prompts in Codex, ChatGPT, Claude, or another chat interface; carrying continuity notes between chapters; and assessing translation quality with the rubric. These are manual workflows, not tested provider integrations or guarantees of quality.
-- **Not implemented:** automatic translation or review, persistent story memory, automatic acceptance, whole-book processing, or cross-provider compatibility.
-
-The EPUB builder is a formatter, not a translator or EPUB quality checker. Prompts cannot guarantee correctness, and model self-review is not independent bilingual validation. Prior project trials did not establish a general quality advantage for added context or adaptive editing.
-
-This public repository does not include copyrighted source texts, translations, or private project records. Keep such material out of public repositories, and check a provider's terms and privacy controls before sharing text with an online service. See [Getting Started](docs/GETTING_STARTED.md) for more guidance.
-
-## Project files
-
-- [`prompts/`](prompts/translate.md): contextual analysis, translation, and conservative review prompts.
-- [`evaluation/rubric.md`](evaluation/rubric.md): blind assessment form separating source-grounded defects from reader ratings.
-- [`scripts/markdown_to_epub.py`](scripts/markdown_to_epub.py): Markdown-to-EPUB builder.
-- [`CURRENT.md`](CURRENT.md), [`ROADMAP.md`](ROADMAP.md), and [`BACKLOG.md`](BACKLOG.md): status, established direction, and deferred research.
+- [AGENTS.md](AGENTS.md) — workflow, acceptance, recovery, and export rules
+- [prompts/](prompts/) and [evaluation/rubric.md](evaluation/rubric.md) — stage instructions and criteria
+- [scripts/epub_to_markdown.py](scripts/epub_to_markdown.py) — source extraction
+- [scripts/markdown_to_epub.py](scripts/markdown_to_epub.py) — EPUB assembly
+- [ROADMAP.md](ROADMAP.md) — prototype status, limitations, and future directions

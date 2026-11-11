@@ -21,3 +21,9 @@ Return only the Russian translation. Preserve the source paragraph breaks. Do no
 ## Passage
 
 {{SOURCE_TEXT}}
+
+## Dynamic Context (optional)
+
+{{DYNAMIC_CONTEXT}}
+
+Use relevant established context for continuity, terminology, and voice. The English passage above takes precedence if context conflicts with it. Do not use context to add information absent from the passage, resolve unsupported ambiguity, or import future events. Ignore this section when Dynamic Context is disabled by request.

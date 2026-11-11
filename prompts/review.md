@@ -9,8 +9,7 @@ Conservatively edit the supplied Russian translation against the frozen English 
 - Do not call a stylistic preference an error without source evidence.
 - Do not invent context or resolve ambiguous source wording without evidence.
 - Correct demonstrated grammar, terminology, meaning, and naturalness problems with the smallest justified change. Preserve natural word order, successful metaphors, character voice, register, narrative rhythm, uncertainty, point of view, and emotional intensity. Do not simplify metaphors, embellish, or make broad stylistic substitutions.
-- Address reader-reported issues only where supported in context: potentially unnatural feminine forms of «эльф»; «первый рыдок» where «первый всхлип» fits the English; «повидать»/«проведать» according to context; excessive narrative em dashes; and dialogue paragraphing where a separate paragraph improves Russian readability. Also apply any explicitly supplied passage-specific correction.
-- Treat examples as targets for judgment, not global replacement rules. Do not change every em dash, every dialogue/action paragraph, or every occurrence of a grammatical form automatically.
+- Address user-reported or passage-specific issues when supplied, but only where the source and context support a correction.
 - Check each material edit against its English source span and surrounding context. Keep unchanged all text without a justified correction.
 - Review the full chapter for context, but quote only spans needed for the concise change log or unresolved questions.
 
@@ -34,7 +33,11 @@ Use **KEEP** when a plausible alternative is only a stylistic preference. Return
 2. **Concise change log** for applied revisions: source paragraph number, issue type, source evidence, and reason. Do not repeat unchanged spans.
 3. **Unresolved questions** as separate **FLAG** items with source paragraph, exact English and Russian spans, and what needs human judgment. Do not implement an uncertain change. If none remain, say “None.”
 
-Do not include a general quality rating, preface, or stylistic rewrites. Return no English chapter text beyond the short evidence spans needed in the log or flags.
+## Required C1 integrity check
+
+Before finalizing C1, compare every correction recorded as applied in the change log with the complete C1 at the corresponding source location. Confirm that the replacement is present and the superseded C0 wording is no longer there. Every correction recorded as applied must be present in C1, or explicitly documented as rejected or superseded with a reason; do not describe a correction as applied if it was not made. If any check fails, correct C1 and verify again. Also compare the complete C1 with C0 so unlogged changes are identified. Do not advance to rubric assessment or chapter acceptance until this check passes.
+
+Do not include a general quality rating, preface, or stylistic rewrites. Literary ratings and the full fidelity assessment belong to the separate mandatory `prompts/assess.md` stage after C1; this review's defect log remains focused on actionable edits and flags. Return no English chapter text beyond the short evidence spans needed in the log or flags.
 
 ## Frozen English source
 
