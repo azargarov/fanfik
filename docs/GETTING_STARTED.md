@@ -16,6 +16,16 @@ The agent follows [AGENTS.md](../AGENTS.md): it prepares and verifies the source
 
 Even when you request the whole book, the agent handles one chapter at a time instead of putting the book into one translation task. This keeps the active material within the model's context window and makes checkpoint-based resuming practical.
 
+### Long books and context windows
+
+A single request can start a full-book translation, but a long book may need several agent sessions. For a long book, ask the agent to work in small batches, for example 3–5 chapters, and stop at a chapter boundary after completing all stages, acceptance, and the Dynamic Context/progress update. The batch size is a starting point: adjust it for chapter length, model context capacity, and the amount of analysis and review material.
+
+For example:
+
+> Following `AGENTS.md`, translate the next 3–5 chapters in reading order. Complete each chapter's full workflow and update the saved progress and Dynamic Context after acceptance. Then stop at the next chapter boundary and report the next unfinished chapter so I can resume in a fresh session.
+
+Start a fresh agent session, open the same project, and ask it to continue from the saved project state. It will inspect the checkpoints and resume at the first unfinished chapter/stage.
+
 Progress and artifacts are saved under `books/`. If interrupted, ask the agent to continue the translation; it inspects the progress record and existing files and resumes at the first incomplete stage. The source EPUB remains unchanged, and `books/` is excluded from Git.
 
 The importer supports ordinary text-based EPUB 2/3 XHTML/HTML. PDF, OCR, DRM, images, and complex layouts are unsupported. The agent checks extraction warnings and chapter text, but model assessment is not independent translation validation. Dynamic Context is experimental and can be disabled by request.
@@ -23,6 +33,8 @@ The importer supports ordinary text-based EPUB 2/3 XHTML/HTML. PDF, OCR, DRM, im
 ## Chat mode (manual execution)
 
 Use this mode with a conversational LLM that cannot access the repository or run commands. You copy prompt instructions and source text into chat, then manage files and local tools yourself. The LLM does not create files, persist checkpoints, verify your saved files, or assemble the EPUB for you. If you disable Dynamic Context, record that choice in your progress notes and omit context from prompts; keep the other stages.
+
+For a long book, use batches of a few chapters per chat session, save all accepted chapter files plus the updated Dynamic Context and progress notes, then start a fresh chat. Supply the current context and the next unfinished chapter; do not rely on the new chat remembering earlier conversation content.
 
 ### Start a chat
 
