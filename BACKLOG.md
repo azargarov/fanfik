@@ -4,7 +4,7 @@ Items below are deferred questions, not approved experiments or promised capabil
 
 ## Translation context and continuity
 
-Test whether brief, verified, as-of-scene context helps a passage whose interpretation demonstrably depends on earlier events, compared with the adjacent source text alone. Keep facts, interpretations, and uncertainty distinct; exclude later revelations. Do not build persistent narrative-state machinery unless simple manual notes show repeatable value.
+Test whether brief, verified, as-of-scene context helps a passage whose interpretation demonstrably depends on earlier events, compared with the adjacent source text alone. Keep facts, interpretations, and uncertainty distinct; exclude later revelations. Evaluate the existing compact Dynamic Context before considering expansion; do not add persistence features without a repeated, demonstrated need.
 
 ## Independent quality assessment
 

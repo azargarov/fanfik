@@ -1,6 +1,6 @@
 # Fanfik — Codex book translation workflow
 
-When asked to translate a book, carry out the complete workflow below without requiring separate requests or chapter-by-chapter approval. Read the stage prompts and rubric, and work in source order. The English EPUB is authoritative and must remain unchanged. Keep all book material under `books/`; never commit or push it. Do not modify unrelated files.
+This is the agent-mode workflow for a filesystem-capable coding agent. When asked to translate a book, the agent executes the complete sequence below without requiring separate stage requests or chapter-by-chapter approval. Process one current chapter at a time rather than sending the whole book as one translation task; this keeps each stage within the model's context window and supports recovery from checkpoints. Read the stage prompts and rubric, and work in source order. The English EPUB is authoritative and must remain unchanged. Keep all book material under `books/`; never commit or push it. Do not modify unrelated files. For a conversational LLM without file access, use the manual Chat mode in `docs/GETTING_STARTED.md` instead.
 
 ## Chapter workflow
 
