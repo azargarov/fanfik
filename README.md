@@ -18,7 +18,7 @@ Book-specific source, working files, progress checkpoints, and final EPUBs belon
 
 ## Scope and limitations
 
-The importer supports text in ordinary EPUB 2/3 XHTML/HTML. It does not support PDF, OCR, DRM, images, or complex layout; extraction warnings and uncertain chapter boundaries require inspection. The workflow is coordinated by Codex instructions, not a standalone translation engine. Model review and single-candidate assessment are not independent validation, and Dynamic Context is experimental; its effect on quality has not been established. The EPUB builder handles a limited Markdown subset and checks structure, not literary quality.
+The importer supports text in ordinary EPUB 2/3 XHTML/HTML. It does not support PDF, OCR, DRM, images, or complex layout; extraction warnings and uncertain chapter boundaries require inspection. The workflow is coordinated by repository instructions and prompts and executed by the filesystem-capable agent, not by a standalone translation engine. Model review and single-candidate assessment are not independent validation, and Dynamic Context is experimental; its effect on quality has not been established. The EPUB builder handles a limited Markdown subset and checks structure, not literary quality.
 
 Keep copyrighted or private source books and all generated book material out of version control. Text is processed by the AI provider used with Codex; check the provider’s data-handling terms.
 
